@@ -1,25 +1,55 @@
-<h1 class="d-flex justify-content-center">Añadir Usuario</h1>
+<div class="div-header">
+  <h1 class="d-flex justify-content-center">Añadir Usuario</h1>
+  <div class="d-flex justify-content-center">
 
-<div class="d-flex justify-content-center">
-    <!-- Name input -->
-<div class="form-outline mb-4">
-    <input type="text" id="form7Example1" class="form-control" />
-    <label class="form-label" for="form7Example1">Name</label>
+    <div class="form-outline mb-4">
+      <input required [(ngModel)]="cuentaService.dateNew" type="date" id="form7Example1" class="form-control" name="trip-start" value="2022-01-01" min="2022-01-01" max="2023-12-31">  
+    </div>
+
+    <div class="form-outline mb-4">
+      <input required [(ngModel)]="cuentaService.nameNew" type="text" id="form7Example1" class="form-control" />
+      <label  class="form-label" for="form7Example1">Nombre</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input [(ngModel)]="cuentaService.lastnameNew" type="text" id="form7Example1" class="form-control" />
+      <label  class="form-label" for="form7Example1">apellido</label>
+    </div>
+
+    
+    <div class="form-outline mb-4">
+      <input [(ngModel)]="cuentaService.emailNew" type="email" id="form7Example2" class="form-control" />
+      <label class="form-label" for="form7Example2">Email </label>
+    </div>
+    
+   
+
+    <div class="form-outline mb-4">
+      <input [(ngModel)]="cuentaService.priceNew" type="text" id="form7Example1" class="form-control" />
+      <label class="form-label" for="form7Example1">precio</label>
+    </div>
   </div>
+
   
-  <!-- Email input -->
-  <div class="form-outline mb-4">
-    <input type="email" id="form7Example2" class="form-control" />
-    <label class="form-label" for="form7Example2">Email address</label>
+
+  <div class="d-flex justify-content-end">
+      <button  (click)="cuentaService.agregarUser()" class="btn btn-warning" >enviar</button>
   </div>
 </div>
-<div class="d-flex justify-content-end">
-    <button class="btn btn-warning">enviar</button>
-</div>
+
+<button (click)="cuentaService.borrarTodo()" class="btn btn-warning a">eliminar todo</button>
 
 
-<div class="d-people">
-    <p>persona</p>
-    <p>tiempo</p>
-    <button class="btn btn-warning" >eliminar</button>
+<div *ngFor="let data of cuentaService.data; index as i" class="d-people">
+  <div>
+    <figure class="photo-user">
+      <img class="photo" src="https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.webp?w=768" alt="foto de perfil">
+    </figure>
+  </div>
+  <div class="info-user">
+     <p>{{data.name}}</p>
+     <p>{{data.fechaInicio}}</p>
+  </div> 
+    <button (click)="cuentaService.borrarUser(i)" class="btn btn-warning" >eliminar</button>
 </div>
+
