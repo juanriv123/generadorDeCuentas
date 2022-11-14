@@ -2,6 +2,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+
+
+
 
 
 // import { time } from 'console';
@@ -17,8 +21,15 @@ export class CuentasService {
    priceNew: any = 0;
    emailNew:string = ""; 
    dateNew:any = new Date();
-   vencimientoNew:string ="";
+   vencimientosNew:any = new Date();
    data: any[] = [];
+
+   
+
+   // hash = hashlib.md5(data.id())
+
+  //  print(hash.hexdigest())
+
 
    constructor(private afs: AngularFirestore) {}
    
@@ -27,16 +38,20 @@ export class CuentasService {
    collectionData: any = this.collection.snapshotChanges().pipe(map(arr => arr.map(snap => {
     const data: any = snap.payload.doc.data();
     const id = snap.payload.doc.id;
-    return {...data, id};
-   })))
+    const hash = CryptoJS.MD5(id).toString();
+    const ref = snap.payload.doc.ref;
+
+    return {...data, id, ref, hash};
+   })));
    agregarUser(){ 
     const newData = {
       name: this.nameNew,
       lastname: this.lastnameNew,
       price: this.priceNew,
       email: this.emailNew,
-      date: this.dateNew,
-      fechaInicio: this.dateNew,
+      date: new Date(this.dateNew),
+      fechaInicio: new Date(this.dateNew),
+      fechaFinal: new Date(this.dateNew),
       
      };
     this.data.push(newData) 
@@ -49,21 +64,32 @@ export class CuentasService {
      this.priceNew = 0;
      this.emailNew ="";
      this.dateNew ="";
+     this.vencimientosNew ="";
 
     
    }
 
-   borrarUser(index: number){
-    this.data.splice(index, 1);
-   }
+   borrarUser(ref: any){
 
+    // this.afs.doc(`/usuarios/test-id/suscripciones/${id}`).delete();
+    // this.collection.doc(id).delete(); // mejor
+   // this.afs.collection('/usuarios/test-id/suscripciones').doc(id).delete();
+   // this.afs.collection('usuarios').doc('test-id').collection('suscripciones').doc(id).delete();
+   this.afs.doc(ref).delete();
+
+    
+   }
    borrarTodo(){
       this.data = [];
    }
 
-  vencimientos(index: number){
-   this.data[index].fechaFinal = this.vencimientoNew;
- this.vencimientoNew ="";
+  vencimientos(ref: any, fecha: any){
+  //  this.data[index].fechaFinal = ;
+  if(!ref || !fecha) return;
+  
+  this.afs.doc(ref).update({ fechaFinal: new Date(fecha.value)});
+  
+  
   }
   
  

@@ -38,29 +38,29 @@
   </div>
   </div>
 
-<button (click)="cuentaService.borrarTodo()" class="btn btn-warning a">eliminar todo</button>
+
 
 
   <div *ngFor="let data of cuentaService.collectionData | async; index as i" class="d-people">
   <div>
     <figure class="photo-user">
-      <img class="photo" src="https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.webp?w=768" alt="foto de perfil">
+      <img class="photo" [src]="'https://www.gravatar.com/avatar/'+data.hash+'?d=robohash&f=y&s=512'">
     </figure>
   </div>
   <div class="info-user">
      <p>{{data.name}}</p>
-     <p>{{data.fechaInicio.toDate()}}</p>
-     <p>{{data.fechaFinal.toDate()}}</p>
+     <p>{{data.fechaInicio?.toDate()}}</p>
+     <p>{{data.fechaFinal?.toDate() | date: 'dd/MM/yyyy'}}</p>
   </div> 
 
   <div class="vencimiento">
-    <input type="date"  required [(ngModel)]="cuentaService.vencimientoNew">
-    <button  (click)="cuentaService.vencimientos(i)" class="btn btn-warning">confimar</button>
+    <input type="date"  required #fecha>
+    <button  (click)="cuentaService.vencimientos(data.ref, fecha)" class="btn btn-warning">confimar</button>
   </div>
     
 
-    <button (click)="cuentaService.borrarUser(i)" class="btn btn-warning" >eliminar</button>
+    <button (click)="cuentaService.borrarUser(data.ref)" class="btn btn-warning" >eliminar</button>
   </div>
-</body>
+</body> 
 
 

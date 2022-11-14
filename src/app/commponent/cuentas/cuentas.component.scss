@@ -1,8 +1,8 @@
 body{
-    background-color:  #ffa900;
+    background-color:  #591212;
 }
 .div-header{
-    background-color: #ffa999;
+    background-color: #8a301f;
 }
 .d-people{
     width: 100%;
@@ -12,6 +12,7 @@ body{
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
+    margin-top: 1%;
 }
 .photo-user{
     grid-column: 1 / 3;
@@ -29,11 +30,19 @@ body{
     width: 100px;
     height: 100px;
     position: absolute;
-    left: 550px;
+    left: 750px;
     margin: 10px;
 }
-.p-vencimiento{
+p{
+    margin-left: -80%;
+}
+.d-flex{
     color: white;
-    
+}
+.form-control{
+    color: white;
+}
+.form-outline .form-control ~ .form-label{
+    color: white;
 }
 

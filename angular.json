@@ -34,7 +34,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/chart.js"
+              "node_modules/chart.js/dist/chart.js",
+              "node_modules/crypto-js/crypto-js.js"
             ]
           },
           "configurations": {
@@ -103,7 +104,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/crypto-js/crypto-js.js"
+            ]
           }
         }
       }
